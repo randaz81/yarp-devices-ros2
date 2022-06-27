@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
 project(yarp-ros2
         LANGUAGES CXX
-        VERSION 3.4.100)
+        VERSION 3.7.0)
 
 include(FeatureSummary)
 
@@ -48,30 +48,18 @@ set_property(GLOBAL PROPERTY USE_FOLDERS 1)
 
 include(AddUninstallTarget)
 
-find_package(YARP 3.4.1 COMPONENTS os sig dev REQUIRED)
+find_package(YARP 3.7.0 COMPONENTS os sig dev REQUIRED)
 set(CMAKE_C_FLAGS "${YARP_C_FLAGS} ${CMAKE_C_FLAGS}")
 set(CMAKE_CXX_FLAGS "${YARP_CXX_FLAGS} ${CMAKE_CXX_FLAGS}")
 
 yarp_configure_plugins_installation(yarp-ros2)
 
-find_package(ament_cmake REQUIRED)
 
-find_package(rclcpp REQUIRED)
-find_package(std_msgs REQUIRED)
-find_package(sensor_msgs REQUIRED)
-find_package(nav_msgs REQUIRED)
-find_package(tf2_msgs REQUIRED)
-find_package(test_msgs REQUIRED)
 
-find_package(visualization_msgs REQUIRED)
+#add_subdirectory(src)
 
-if(YARP_ROS2_USE_SYSTEM_map2d_nws_ros2_msgs)
-  find_package(map2d_nws_ros2_msgs REQUIRED)
-else()
-  add_subdirectory(ros2_interfaces_ws/src/map2d_nws_ros2_msgs)
-endif()
-
-add_subdirectory(src)
+find_package(Doxygen)
+add_subdirectory(doc)
 
 
 #if(BUILD_TESTING)
@@ -85,6 +73,5 @@ add_subdirectory(src)
   #ament_lint_auto_find_test_dependencies()
 #endif()
 
-ament_package()
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES)
